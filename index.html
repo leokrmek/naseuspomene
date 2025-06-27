@@ -55,6 +55,45 @@
 </div>
 
   <div id="map"></div>
+<!-- YouTube player sakriven -->
+<div id="yt-player-container" style="display:none;">
+  <div id="player"></div>
+</div>
+
+<!-- Kontrole glazbe -->
+<div id="music-control" style="
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 10px 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  z-index: 10000;
+">
+  <button id="play-btn" style="
+    border: none;
+    background: #4CAF50;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  ">▶️ Play</button>
+  <button id="pause-btn" style="
+    border: none;
+    background: #f44336;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+  ">⏸️ Pause</button>
+</div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
@@ -209,14 +248,7 @@
         .bindPopup(`<h3>${mem.title}</h3><p>${mem.content}</p>`);
     });
 
-    // Opcionalno: prikaz koordinata kada klikneš na kartu (za dodavanje novih uspomena)
-    map.on('click', function(e) {
-      const lat = e.latlng.lat.toFixed(6);
-      const lng = e.latlng.lng.toFixed(6);
-      console.log(`Kliknuto na: ${lat}, ${lng}`);
-      alert(`Dodaj ovu lokaciju u uspomene:
-Lat: ${lat}, Lng: ${lng}`);
-    });
+   
   function startExperience() {
   const welcome = document.getElementById('welcome');
   welcome.classList.add('fade-out');
@@ -225,6 +257,43 @@ Lat: ${lat}, Lng: ${lng}`);
     welcome.style.display = 'none';
   }, 1000); // Nakon 1 sekunde (trajanje animacije)
 }
+    let player;
+
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('player', {
+    height: '0',
+    width: '0',
+    videoId: '4A2abl6I2PQ', // ID videa iz tvoje YouTube poveznice
+    playerVars: {
+      autoplay: 0,
+      controls: 0,
+      loop: 1,
+      playlist: '4A2abl6I2PQ',
+      modestbranding: 1,
+      rel: 0,
+      disablekb: 1,
+      fs: 0
+    },
+    events: {
+      onReady: onPlayerReady
+    }
+  });
+}
+
+function onPlayerReady(event) {
+  const playBtn = document.getElementById('play-btn');
+  const pauseBtn = document.getElementById('pause-btn');
+
+  playBtn.addEventListener('click', () => {
+    player.playVideo();
+  });
+
+  pauseBtn.addEventListener('click', () => {
+    player.pauseVideo();
+  });
+}
+
   </script>
+  <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>
