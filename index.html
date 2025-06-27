@@ -21,6 +21,30 @@
   </style>
 </head>
 <body>
+  <div id="welcome" style="
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 9999;
+">
+  <h1 style="font-size: 2em; padding: 0 20px;">1460 naših dana ❤️</h1>
+  <p style="max-width: 600px; padding: 20px;">Na ovoj karti su zabilježeni naši najljepši trenuci. Svaka lokacija čuva uspomenu, baš kao što je i svako mjesto ljepše kad si ti uz mene.</p>
+  <button onclick="startExperience()" style="
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #ff5c8d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  ">Započni</button>
+</div>
+
   <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -184,6 +208,10 @@
       alert(`Dodaj ovu lokaciju u uspomene:
 Lat: ${lat}, Lng: ${lng}`);
     });
+    function startExperience() {
+  document.getElementById('welcome').style.display = 'none';
+}
+
   </script>
 </body>
 </html>
