@@ -18,6 +18,15 @@
     .leaflet-popup-content h3 {
       margin-top: 0;
     }
+#welcome.fade-out {
+  animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; visibility: hidden; }
+}
+
   </style>
 </head>
 <body>
@@ -208,10 +217,14 @@
       alert(`Dodaj ovu lokaciju u uspomene:
 Lat: ${lat}, Lng: ${lng}`);
     });
-    function startExperience() {
-  document.getElementById('welcome').style.display = 'none';
-}
+  function startExperience() {
+  const welcome = document.getElementById('welcome');
+  welcome.classList.add('fade-out');
 
+  setTimeout(() => {
+    welcome.style.display = 'none';
+  }, 1000); // Nakon 1 sekunde (trajanje animacije)
+}
   </script>
 </body>
 </html>
